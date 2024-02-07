@@ -1,0 +1,14 @@
+.cardbox{
+    width: 100%;
+    margin: auto;
+    /* background-color: aqua; */
+    justify-content: space-around;
+}
+.sub-head{
+    font-family: rock;
+}
+
+@font-face {
+    font-family: rock;
+    src: url(./Rocksalt.ttf);
+}

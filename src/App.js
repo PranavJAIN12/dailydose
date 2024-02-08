@@ -6,8 +6,8 @@ import News from './components/News';
 function App() {
   return (
     <>
-  <Navbar title = "DailyDose"/>
-  <News title = "DailyDose"/>
+  <Navbar title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮"/>
+  <News title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮"/>
     </>
   );
 }

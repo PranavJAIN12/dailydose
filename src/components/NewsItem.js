@@ -11,7 +11,7 @@ export default function NewsItem(props) {
           <h5 className="card-title">{props.title}</h5>
           <p className="card-text">{props.description}</p>
           <p className='card-text'>Published at: {props.date}</p>
-          <a href={props.newsUrl} target='_blank' className="btn btn-primary" rel="noreferrer">Read More</a>
+          <a href={props.newsUrl} target='_blank' className={`btn btn-${props.mode==='dark'? 'dark': 'primary'}`} rel="noreferrer">Read More</a>
         </div>
       </div>
     </div>

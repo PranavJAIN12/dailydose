@@ -3,24 +3,37 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import NewsItem from "./NewsItem";
 import emptynews from "./emptynews.webp";
+import LoadingBar from 'react-top-loading-bar'
 
 export default function News(props) {
   const [article, setArticle] = useState([]);
   const [page, setpage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
+  const[loading, setloading] = useState(false)
+  const[progress, setProgress] = useState(0)
 
   useEffect(() => {
+    setloading(true)
+    setProgress(10)
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=102a2d9a536447b0bf0ff8cdc5f78128&page={page}&pageSize=${props.pageSize}`;
 
+    
     axios
-      .get(url)
-      .then((response) => {
+    .get(url)
+    .then((response) => {
+        setProgress(50)
         setArticle(response.data.articles);
         console.log(response.data.articles);
+        setProgress(100)
       })
       .catch((error) => {
         console.log(error);
+        setProgress(100)
+      })
+      .finally(() => {
+        setloading(false); // Set loading to false after the request is completed
       });
-  }, [props.country, props.category, props.pageSize]);
+  }, [props.country, props.category, props.pageSize, page]);
 
   const handlenextpage = () => {
     console.log("next page");
@@ -34,8 +47,10 @@ export default function News(props) {
     axios
       .get(url)
       .then((response) => {
+        setProgress(0)
         setArticle(response.data.articles);
         console.log(response.data.articles);
+        setProgress(100)
       })
       .catch((error) => {
         console.log(error);
@@ -55,8 +70,10 @@ export default function News(props) {
     axios
       .get(url)
       .then((response) => {
+        setProgress(0)
         setArticle(response.data.articles);
         console.log(response.data.articles);
+        setProgress(100)
       })
       .catch((error) => {
         console.log(error);
@@ -66,9 +83,19 @@ export default function News(props) {
 
   return (
     <div>
+   <div>
+      <LoadingBar
+        color='#f11946'
+        progress={progress}
+        transitionTime={200}
+        loaderSpeed={300}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      
+    </div>
       <h1
-        className="text-center mt-3 mb-2"
-        style={{ color: props.mode === "dark" ? "white" : "black" }}
+        className="text-center  mb-2"
+        style={{ color: props.mode === "dark" ? "white" : "black" , marginTop: '70px' }}
       >
         Welcome to <span className="badge bg-danger">{props.title}</span>
       </h1>
@@ -102,19 +129,20 @@ export default function News(props) {
           );
         })}
       </div>
-      <div class="d-flex justify-content-between mt-3 " style={{
+      <div class="d-flex justify-content-between m-3 " style={{
         marginLeft: '20px',
-        marginRight: '20px'
+        marginRight: '20px',
+        marginBottom: '20px'
       }}>
         <button
           className="btn btn-info"
           disabled={page === 1}
           onClick={handleprevpage}
         >
-          Previous
+          <b>Previous Page</b>
         </button>
         <button className="btn btn-info" onClick={handlenextpage}>
-          Next
+          <b>Next Page</b>
         </button>
       </div>
     </div>
@@ -124,7 +152,7 @@ export default function News(props) {
 News.defaultProps = {
   country: "in",
   pageSize: 9,
-  category: "entertainment",
+  category: "general",
 };
 
 News.propTypes = {

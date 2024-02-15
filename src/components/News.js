@@ -124,6 +124,7 @@ export default function News(props) {
                 date={element.publishedAt}
                 source={element.source.name}
                 mode={props.mode}
+                sourceName = {element.source.name}
               />
             </div>
           );

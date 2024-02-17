@@ -8,6 +8,7 @@ import About from './components/About';
 
 function App() {
   const [Mode, setMode]= useState('light')
+  // const[active, setActive] = useState('')
 
   const toggleMode=()=>{
     if(Mode==='light'){
@@ -34,9 +35,9 @@ function App() {
 <>
 <Navbar title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮" mode={Mode} toggleMode={toggleMode}/>
 <Routes>
-<Route path="/about" element={<About/>} />
+<Route path="/about" element={<About mode={Mode}/>} />
 
-<Route path="/" element={<News title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮" mode={Mode} category="general" pageSize='9' country='in'/>} />
+<Route path="/" element={<News title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮" mode={Mode} active={"active"} category="general" pageSize='9' country='in'/>} />
 <Route path="/entertainment" element={<News title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮" mode={Mode} category="entertainment" pageSize='9' country='in'/>} />
 <Route path="/technology" element={<News title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮" mode={Mode} category="technology" pageSize='9' country='in'/>} />
 <Route path="/business" element={<News title = "𝓓𝓪𝓲𝓵𝔂𝓓𝓸𝓼𝓮" mode={Mode} category="business" pageSize='9' country='in'/>} />

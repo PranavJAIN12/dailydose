@@ -13,6 +13,10 @@ export default function News(props) {
   const[progress, setProgress] = useState(0)
 
   useEffect(() => {
+    setpage(1); // Reset page number to 1 whenever the category changes
+  }, [props.category]);
+
+  useEffect(() => {
     setloading(true)
     setProgress(10)
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=102a2d9a536447b0bf0ff8cdc5f78128&page={page}&pageSize=${props.pageSize}`;

@@ -6,11 +6,19 @@ import emptynews from "./emptynews.webp";
 import LoadingBar from 'react-top-loading-bar'
 
 export default function News(props) {
+
   const [article, setArticle] = useState([]);
   const [page, setpage] = useState(1);
   // eslint-disable-next-line no-unused-vars
   const[loading, setloading] = useState(false)
   const[progress, setProgress] = useState(0)
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Optionally, you can use smooth scrolling
+    });
+  };
 
   useEffect(() => {
     setpage(1); // Reset page number to 1 whenever the category changes
@@ -54,11 +62,13 @@ export default function News(props) {
         setProgress(0)
         setArticle(response.data.articles);
         console.log(response.data.articles);
+        scrollToTop();
         setProgress(100)
       })
       .catch((error) => {
         console.log(error);
       });
+      
   };
 
   const handleprevpage = () => {
@@ -77,6 +87,7 @@ export default function News(props) {
         setProgress(0)
         setArticle(response.data.articles);
         console.log(response.data.articles);
+        scrollToTop();
         setProgress(100)
       })
       .catch((error) => {
@@ -84,6 +95,8 @@ export default function News(props) {
       });
     }
   };
+
+  
 
   return (
     <div>
@@ -129,6 +142,16 @@ export default function News(props) {
                 source={element.source.name}
                 mode={props.mode}
                 sourceName = {element.source.name}
+                shareNews={()=>{
+                  
+                  navigator.clipboard.writeText(element.url)
+                  .then(() => {
+                    alert('URL copied to clipboard!');
+                      })
+                      .catch(()=>{
+                        alert('Cannot copy');
+                      })
+                }}
               />
             </div>
           );

@@ -15,6 +15,7 @@ export default function NewsItem(props) {
             display: 'flex', justifyContent: 'flex-end', right:'-10px', top: '0', position: 'absolute'
           }}>{props.sourceName}</span>   
                  <a href={props.newsUrl} target='_blank' className={`btn btn-${props.mode==='dark'? 'dark': 'primary'}`} rel="noreferrer">Read More</a>
+                 <button className=' mx-4 btn btn-danger' onClick={props.shareNews}>Share</button>
         </div>
       </div>
     </div>
